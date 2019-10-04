@@ -25,13 +25,6 @@ user (sequelize object -> that is, the returned user from
 findByPk) into the request before passing it along to the
 next middleware.
 */
-app.use((req, res, next) => {
-  User.findByPk(1)
-    .then(user => {
-      req.user = user;
-    })
-    .catch(err => console.log(err));
-});
 
 app.use("/admin", adminRoutes);
 app.use(shopRoutes);
@@ -52,12 +45,12 @@ sequelize
   })
   .then(user => {
     if (!user) {
-      return User.create({ 
-        name: "Luke", 
-        email: "test@test.com" 
+      return User.create({
+        name: "Luke",
+        email: "test@test.com"
       });
     }
-    return user;
+    return Promise.resolve(user);
   })
   .then(user => {
     app.listen(3000);
