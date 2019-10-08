@@ -1,0 +1,25 @@
+include ../includes/main
+include ../includes/add-to-cart
+block page-top
+    link(rel="stylesheet", href="/css/product.css")
+
+    block navbar
+
+            main
+                - if (prods.length > 0)
+                    .grid
+                        - for (product of prods)
+                            article(class="card product-item")
+                                header.card__header
+                                    h1.product__title #{product.title}
+                                .card__image
+                                    img(src=product.imageUrl, alt=product.title)
+                                .card__content
+                                    h2.product__price $#{product.price}
+                                    p.product__description #{product.description}
+                                .card__actions
+                                    a.btn(href="/products/" + product._id) Details
+                                    block add-to-cart
+                - else
+                    h1 No Products Found!
+    block page-botom

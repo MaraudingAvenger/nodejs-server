@@ -1,0 +1,16 @@
+include ../includes/main
+block page-top
+    link(rel="stylesheet", href="/css/orders.css")
+    block navbar
+        main
+            if orders.length <= 0
+                h1 Nothing there!
+            else
+                ul.orders
+                    for order of orders
+                        <li.orders__item">
+                            h1 Order - # #{order._id}
+                            ul.orders__products
+                                for p of order.products
+                                    li.orders__products-item #{p.product.title} (#{p.quantity})
+        block page-bottom
